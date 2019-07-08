@@ -25,7 +25,7 @@ export default class SignIn extends Component {
 
     static = propTypes = {
         navigation: PropTypes.shape({
-            navigation: PropTypes.func,
+            navigate: PropTypes.func,
             dispatch: PropTypes.func,
         }).isRequired,
     };
@@ -45,7 +45,7 @@ export default class SignIn extends Component {
     }
 
     handleSignInPress = async () => {
-        if (this.state.email.length === 0 || this.store.password.length === 0 ) {
+        if (this.state.email.length === 0 || this.state.password.length === 0 ) {
             this.setState({ error: 'Preencha usuário e senha para continhar!' }, () => false);
         }else{
             try{
@@ -53,6 +53,7 @@ export default class SignIn extends Component {
                     email: this.state.email,
                     password: this.state.password
                 });
+                console.log('aqui2')
 
                 await AsyncStorage.setItem('@AirBnbApp:token', response.data.token);
 
@@ -64,6 +65,7 @@ export default class SignIn extends Component {
                 });
                 this.props.navigation.dispath(resetAction);
             }catch(_err) {
+                console.tron.log(_err)
                 this.setState({ error: 'Houve um problema com o login, verifique suas credenciais!' });
             }
         }
